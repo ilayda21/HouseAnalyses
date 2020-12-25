@@ -8,6 +8,10 @@ library(arulesViz)
 library(cluster)
 library(fpc)
 library(DMwR2)
+library(rpart)
+library(rpart.plot)
+library(mlbench)
+library(e1071)
 
 load("house.data")
 
@@ -233,7 +237,7 @@ print(detect_outliers(dataFrame$FiyatTL, 0.985, 0.015))
 # find Outlier with DBSCAN
 
 numericData <- select_if(dataFrame, is.numeric)
-# d <- scale(numericData)
+d <- scale(numericData)
 # db <- dbscan(d, eps=0.9, MinPts=5)
 # db
 # 
@@ -253,9 +257,30 @@ dbscan.outliers <- function(data, ...) {
        dbscanResults = cl)
 }
 
-outs <- dbscan.outliers(numericData,
-                        eps = 3,
-                        scale=TRUE)
+outs <- dbscan.outliers(d, eps = 1.07)
+
+print("Outliers are detected.")
+
+print(dim(dataFrame))
+
+dataFrame <- dataFrame[-c(outs$positions), ]
+
+print(dim(dataFrame))
+
+
+boxplot(dataFrame$FiyatTL, xlab = "Fiyat")
+ 
+freqOcc <- table(dataFrame$FiyatTL)
+barplot(freqOcc, main = "Fiyat")
+
+hist(dataFrame$FiyatTL, xlab = "Fiyat TL")
+
+res <- discretize(dataFrame$FiyatTL, breaks = 5)
+print(res)
+
+freqOcc <- table(res)
+barplot(freqOcc, main = "Fiyat")
+
 # 
 # tibbledData = as_tibble(dataFrame)
 
