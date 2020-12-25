@@ -165,15 +165,9 @@ for (i in 1:dataDimension[1]) {
         print("CANNOT FOUND")
         frontValue <- NA
       } else {
-        
-        medianBatiResult <- median(firstFilter$CepheBati, na.rm=TRUE)
-        if (!is.na(medianBatiResult) && medianBatiResult == 1) {
-          frontValue = paste0(frontValue, "Bati")
-        } 
-        
-        medianDoguResult <- median(firstFilter$CepheDogu, na.rm=TRUE)
-        if (!is.na(medianDoguResult) && medianDoguResult == 1) {
-          frontValue = paste0(frontValue, "Dogu")
+        medianKuzeyResult <- median(firstFilter$CepheKuzey, na.rm=TRUE)
+        if (!is.na(medianKuzeyResult) && medianKuzeyResult == 1) {
+          frontValue = paste0(frontValue, "Kuzey")
         } 
         
         medianGuneyResult <- median(firstFilter$CepheGuney, na.rm=TRUE)
@@ -181,9 +175,14 @@ for (i in 1:dataDimension[1]) {
           frontValue = paste0(frontValue, "Guney")
         } 
         
-        medianKuzeyResult <- median(firstFilter$CepheKuzey, na.rm=TRUE)
-        if (!is.na(medianKuzeyResult) && medianKuzeyResult == 1) {
-          frontValue = paste0(frontValue, "Kuzey")
+        medianDoguResult <- median(firstFilter$CepheDogu, na.rm=TRUE)
+        if (!is.na(medianDoguResult) && medianDoguResult == 1) {
+          frontValue = paste0(frontValue, "Dogu")
+        } 
+        
+        medianBatiResult <- median(firstFilter$CepheBati, na.rm=TRUE)
+        if (!is.na(medianBatiResult) && medianBatiResult == 1) {
+          frontValue = paste0(frontValue, "Bati")
         } 
         
         if(frontValue == "") {
@@ -276,10 +275,30 @@ barplot(freqOcc, main = "Fiyat")
 hist(dataFrame$FiyatTL, xlab = "Fiyat TL")
 
 res <- discretize(dataFrame$FiyatTL, breaks = 5)
-print(res)
+dataFrame$FiyatTL<-res
 
 freqOcc <- table(res)
 barplot(freqOcc, main = "Fiyat")
+
+dataFrame$OdaBilgisi <- factor(dataFrame$OdaBilgisi, labels = c(unique(dataFrame$OdaBilgisi)))
+levels(dataFrame$OdaBilgisi)
+
+dataFrame$Manzara <- factor(dataFrame$Manzara, labels = c(unique(dataFrame$Manzara)))
+levels(dataFrame$Manzara)
+
+dataFrame$Cephe <- factor(dataFrame$Cephe, labels = c(unique(dataFrame$Cephe)))
+levels(dataFrame$Cephe)
+
+print("Column Types: ")
+columnTypes <- sapply(dataFrame, class)
+print(columnTypes)
+
+samp <- sample(1:nrow(dataFrame), 120)
+tr_set <- dataFrame[samp, ]
+tst_set <- dataFrame[-samp, ]
+model <- rpartXse(FiyatTL ~ ., tr_set, se = 0.5)
+predicted <- predict(model, tst_set, type = "class")
+head(predicted)
 
 # 
 # tibbledData = as_tibble(dataFrame)
