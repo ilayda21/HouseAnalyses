@@ -20,6 +20,8 @@ data <- antalya_train
 dataFrame <- data.frame(data)
 dataDimension <- dim(data)
 
+dataDimension
+
 dataFrame[dataFrame==""]<-NA
 
 # Id is removed because for each row is unique

@@ -1,0 +1,37 @@
+---
+title: "Data Mining - Assignment 2"
+author: "İlayda ÇAVUŞOĞLU ASGHARI DILMANI"
+output: 
+  html_document: 
+    theme: cosmo
+    number_sections: yes
+    df_print: kable
+---
+
+# Data Information
+
+This data contains some information about house information in Antalya. This data contains **25276** rows and **24** columns. Column names and their types are given in the following table:
+
+```{r}
+load("house.data")
+data <- antalya_train
+dataFrame <- data.frame(data)
+knitr::kable(sapply(dataFrame, class), col.names = c("Column Types"))
+```
+
+There are also some empty values in columns. They are converted to **NA** values. **NA** numbers for each column are given in the following table. 
+
+```{r}
+knitr::kable(colSums(is.na(dataFrame)), col.names = c("NA Numbers"))
+```
+
+As it can be seen only the "GercekYas" column has NA values.
+
+## Section 2
+
+```{r}
+data(iris)
+head(iris)
+```
+
+### Section 3
