@@ -233,17 +233,29 @@ print(detect_outliers(dataFrame$FiyatTL, 0.985, 0.015))
 # find Outlier with DBSCAN
 
 numericData <- select_if(dataFrame, is.numeric)
-d <- scale(numericData)
-db <- dbscan(d, eps=0.9, MinPts=5)
-db
+# d <- scale(numericData)
+# db <- dbscan(d, eps=0.9, MinPts=5)
+# db
+# 
+# table(db$cluster,dataFrame$OrijinalAlan)
+# table(db$cluster,dataFrame$AlanMetrekare)
+# table(db$cluster,dataFrame$FiyatTL)
 
-table(db$cluster,dataFrame$OrijinalAlan)
-table(db$cluster,dataFrame$AlanMetrekare)
-table(db$cluster,dataFrame$FiyatTL)
+# -----------------------------------------------------------------------------
+# DBscan
 
-outs <- dbscan.outliers(dataFrame, 
-                        eps = 3, 
+dbscan.outliers <- function(data, ...) {
+  require(fpc, quietly=TRUE)
+  cl <- dbscan(data, ...)
+  posOuts <- which(cl$cluster == 0)
+  list(positions = posOuts,
+       outliers = data[posOuts,],
+       dbscanResults = cl)
+}
+
+outs <- dbscan.outliers(numericData,
+                        eps = 3,
                         scale=TRUE)
-
-tibbledData = as_tibble(dataFrame)
+# 
+# tibbledData = as_tibble(dataFrame)
 
