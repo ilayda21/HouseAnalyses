@@ -300,6 +300,6 @@ model <- rpartXse(FiyatTL ~ ., tr_set, se = 0.5)
 predicted <- predict(model, tst_set, type = "class")
 head(predicted)
 
-# 
-# tibbledData = as_tibble(dataFrame)
-
+table(tst_set$FiyatTL, predicted)
+errorRate <- sum(predicted != tst_set$FiyatTL) / nrow(tst_set)
+errorRate
