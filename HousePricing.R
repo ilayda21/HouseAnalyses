@@ -90,33 +90,33 @@ dataFrame = subset(dataFrame, select = -c(OdaSayisi,SalonSayisi, ToplamOdaSayisi
                                           ManzaraDeniz, ManzaraBogaz))
 
 # --------------------------------------AGE------------------------------------
-
-for (i in 1:dataDimension[1]) {
-  
-  if(is.na(dataFrame$GercekYas[i])) {
-      firstFilter <- dataFrame[dataFrame$Ilce == dataFrame$Ilce[i] &
-                        dataFrame$Mahalle == dataFrame$Mahalle[i] &
-                        dataFrame$OdaBilgisi == dataFrame$OdaBilgisi[i],]
-      
-      if(dim(firstFilter)[1] == 0) {
-        print("CANNOT PASS FIRST FILTER")
-      } else {
-        x <- firstFilter[firstFilter$Fiyat < dataFrame$Fiyat[i] + 20000
-                         & firstFilter$Fiyat > dataFrame$Fiyat[i] - 20000,]
-        if (dim(firstFilter)[1] == 0) {
-          print("CANNOT PASS SECOND FILTER")
-        } else {
-          y <- x[x$OrijinalAlan  < dataFrame$OrijinalAlan [i] + 30
-                   & x$OrijinalAlan  > dataFrame$OrijinalAlan [i] - 30,]
-          medianResult <- (median(y$GercekYas, na.rm=TRUE))
-          if (!is.na(medianResult)) {
-            dataFrame$GercekYas[i] <- medianResult
-          }
-        }
-      }
-
-  }
-}
+# 
+# for (i in 1:dataDimension[1]) {
+#   
+#   if(is.na(dataFrame$GercekYas[i])) {
+#       firstFilter <- dataFrame[dataFrame$Ilce == dataFrame$Ilce[i] &
+#                         dataFrame$Mahalle == dataFrame$Mahalle[i] &
+#                         dataFrame$OdaBilgisi == dataFrame$OdaBilgisi[i],]
+#       
+#       if(dim(firstFilter)[1] == 0) {
+#         print("CANNOT PASS FIRST FILTER")
+#       } else {
+#         x <- firstFilter[firstFilter$Fiyat < dataFrame$Fiyat[i] + 20000
+#                          & firstFilter$Fiyat > dataFrame$Fiyat[i] - 20000,]
+#         if (dim(firstFilter)[1] == 0) {
+#           print("CANNOT PASS SECOND FILTER")
+#         } else {
+#           y <- x[x$OrijinalAlan  < dataFrame$OrijinalAlan [i] + 30
+#                    & x$OrijinalAlan  > dataFrame$OrijinalAlan [i] - 30,]
+#           medianResult <- (median(y$GercekYas, na.rm=TRUE))
+#           if (!is.na(medianResult)) {
+#             dataFrame$GercekYas[i] <- medianResult
+#           }
+#         }
+#       }
+# 
+#   }
+# }
 
 # ---------------------------------------------------------------------------
 kable(attrEval(CepheKuzey ~ . , dataFrame, estimator = "Gini"))
@@ -285,9 +285,9 @@ dataFrame$Manzara <- factor(dataFrame$Manzara, labels = c(unique(dataFrame$Manza
 levels(dataFrame$Manzara)
 count.levels(dataFrame$Manzara)
 
-kable(dataFrame %>% 
-  group_by(Manzara) %>%
-  summarise(no_rows = length(Manzara)))
+# kable(dataFrame %>% 
+#   group_by(Manzara) %>%
+#   summarise(no_rows = length(Manzara)))
 
 dataFrame$Cephe <- factor(dataFrame$Cephe, labels = c(unique(dataFrame$Cephe)))
 levels(dataFrame$Cephe)

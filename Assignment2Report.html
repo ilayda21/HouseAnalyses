@@ -618,15 +618,298 @@ knitr::kable(sapply(dataFrame, class), col.names = c(&quot;Column Types&quot;))<
 </tbody>
 </table>
 <p>As it can be seen only the “GercekYas” column has NA values.</p>
-<div id="data-modification" class="section level2">
-<h2><span class="header-section-number">1.1</span> Data Modification</h2>
-<ul>
-<li><p>The first modification is converting the “empty” entry to NA. So it makes easier to handle such data.</p></li>
-<li><p>“MustakilMi” field is a boolean-like field. This column contains 0 and 1. This column is converted to a factor with yes (for 1) and no (for 0) levels.</p></li>
-<li><p>A new column that is called “OdaBilgisi” defined. Because generally houses are defined with both room and sitting room number. By inspiring that the “OdaSayisi” and “SalonSayisi” columns are merged. After that this column is converted to factor. This factor can get several fields these are: <strong>“3 + 1”, “2 + 1”, “3 + 2”, “4 + 1”, “1 + 1”, “5 + 1”, “7 + 1”, “4 + 2”, “6 + 2”, “6 + 1”, “5 + 2”, “7 + 2”, “2 + 2”, “6 + 3”, “4 + 4”, “4 + 3”, “2 + 0”, “1 + 0”, “8 + 2”, “4 + 0”, “9 + 1”, “8 + 1”, “1 + 2”, “3 + 3”, “5 + 5”, “5 + 3”, “5 + 4”, “8 + 4”, “1 + 3”</strong>. After this step “OdaSayisi”, “Salon Sayisi” and “ToplamOdaSayisi” columns are removed.</p></li>
-<li><p>It is realized that some fields are indicating same attribute. These fields are indicated with numbers 1 and 0. If that field is 1, it means this entry contains that attribute and the other way around. In short, it acts like a boolean field.</p></li>
-</ul>
-<p><strong>“ManzaraGol”, “ManzaraDeniz”, “ManzaraBogaz”, “ManzaraSehir” and “ManzaraDoga” Fields</strong> These five fields indicates the same attribute of the data that is the view attribute. Instead of using five different boolean-like columns, it can be merged as a factor column. That column is called “Manzara”. The inital four &quot;Cephe*&quot; columns are removed from the data. It can take following values:</p>
+</div>
+<div id="data-modification" class="section level1">
+<h1><span class="header-section-number">2</span> Data Modification</h1>
+<div id="empty-fields-are-changed-to-na" class="section level2">
+<h2><span class="header-section-number">2.1</span> Empty fields are changed to NA</h2>
+<p>The first modification is converting the “empty” entry to NA. So it makes easier to handle such data.</p>
+</div>
+<div id="mustakilmi-column-types-changed-to-factor." class="section level2">
+<h2><span class="header-section-number">2.2</span> “MustakilMi” column type’s changed to factor.</h2>
+<p>“MustakilMi” field is a boolean-like field. This column contains 0 and 1. This column is converted to a factor with yes (for 1) and no (for 0) levels.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">MustakilMi</th>
+<th align="right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">no</td>
+<td align="right">24048</td>
+</tr>
+<tr class="even">
+<td align="left">yes</td>
+<td align="right">1228</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="new-column-odabilgisi-is-defined-and-room-related-columns-are-merged." class="section level2">
+<h2><span class="header-section-number">2.3</span> New column “OdaBilgisi” is defined and room related columns are merged.</h2>
+<p>A new column that is called “OdaBilgisi” defined. Because generally houses are defined with both room and sitting room number. By inspiring that the “OdaSayisi” and “SalonSayisi” columns are merged. After that this column is converted to factor. After this step “OdaSayisi”, “Salon Sayisi” and “ToplamOdaSayisi” columns are removed.This factor can get several fields these are given in the following table.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">OdaBilgisi</th>
+<th align="right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1 + 0</td>
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="left">1 + 1</td>
+<td align="right">2346</td>
+</tr>
+<tr class="odd">
+<td align="left">1 + 2</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">1 + 3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">10 + 1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">10 + 2</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">10 + 3</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">10 + 4</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">10 + 5</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">10 + 9</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">11 + 2</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">12 + 2</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">12 + 3</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">12 + 4</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">13 + 3</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">15 + 3</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">16 + 16</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">16 + 4</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">16 + 8</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">17 + 2</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">18 + 8</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">2 + 0</td>
+<td align="right">23</td>
+</tr>
+<tr class="odd">
+<td align="left">2 + 1</td>
+<td align="right">10409</td>
+</tr>
+<tr class="even">
+<td align="left">2 + 2</td>
+<td align="right">52</td>
+</tr>
+<tr class="odd">
+<td align="left">20 + 20</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">3 + 1</td>
+<td align="right">8392</td>
+</tr>
+<tr class="odd">
+<td align="left">3 + 2</td>
+<td align="right">83</td>
+</tr>
+<tr class="even">
+<td align="left">3 + 3</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">32 + 1</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">4 + 0</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">4 + 1</td>
+<td align="right">2182</td>
+</tr>
+<tr class="even">
+<td align="left">4 + 2</td>
+<td align="right">232</td>
+</tr>
+<tr class="odd">
+<td align="left">4 + 3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">4 + 4</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">5 + 0</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">5 + 1</td>
+<td align="right">886</td>
+</tr>
+<tr class="odd">
+<td align="left">5 + 2</td>
+<td align="right">173</td>
+</tr>
+<tr class="even">
+<td align="left">5 + 3</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">5 + 4</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">5 + 5</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">6 + 1</td>
+<td align="right">242</td>
+</tr>
+<tr class="even">
+<td align="left">6 + 2</td>
+<td align="right">60</td>
+</tr>
+<tr class="odd">
+<td align="left">6 + 3</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">7 + 1</td>
+<td align="right">46</td>
+</tr>
+<tr class="odd">
+<td align="left">7 + 2</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="left">7 + 3</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">8 + 1</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="left">8 + 2</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">8 + 3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">8 + 4</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">9 + 1</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">9 + 2</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">9 + 3</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">9 + 4</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p>When the attribute evaluation is done with respect to “FiyatTL” attribute, it can be seen from the table that the dependency value of newly added column “OdaBilgisi” higher than all of “OdaSayisi”, “SalonSayisi” and “ToplamOdaSayisi” columns.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Relatedness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">OdaSayisi</td>
+<td align="right">0.0016720</td>
+</tr>
+<tr class="even">
+<td align="left">SalonSayisi</td>
+<td align="right">0.0001621</td>
+</tr>
+<tr class="odd">
+<td align="left">ToplamOdaSayisi</td>
+<td align="right">0.0016838</td>
+</tr>
+<tr class="even">
+<td align="left">OdaBilgisi</td>
+<td align="right">0.0046383</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="columns-which-are-related-are-merged-into-a-single-column." class="section level2">
+<h2><span class="header-section-number">2.4</span> Columns which are related are merged into a single column.</h2>
+<p>It is realized that some fields are indicating same attribute. These fields are indicated with numbers 1 and 0. If that field is 1, it means this entry contains that attribute and the other way around. In short, it acts like a boolean field.</p>
+<div id="manzaragol-manzaradeniz-manzarabogaz-manzarasehir-and-manzaradoga-fields" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> “ManzaraGol”, “ManzaraDeniz”, “ManzaraBogaz”, “ManzaraSehir” and “ManzaraDoga” Fields</h3>
+<p>These five fields indicates the same attribute of the data that is the view attribute. Instead of using five different boolean-like columns, it can be merged as a factor column. That column is called “Manzara”. The inital four &quot;Cephe*&quot; columns are removed from the data. It can take following values:</p>
 <table>
 <thead>
 <tr class="header">
@@ -749,8 +1032,46 @@ knitr::kable(sapply(dataFrame, class), col.names = c(&quot;Column Types&quot;))<
 </tr>
 </tbody>
 </table>
-<p>For some rows, all of the initial “Manzara” columns are 0. It is considered as there is no view at all. Taht factor is called “ManzaraYok”.</p>
-<p><strong>“CepheBati”, “CepheDogu”, “CepheGuney” and “CepheKuzey” Fields</strong>: These four fields indicates the same attribute of the data that is the side attribute. Instead of using four different boolean-like columns, it can be merged as a factor column. That column is called “Cephe”. The inital four &quot;Cephe*&quot; columns are removed from the data. It can take following values:</p>
+<p>For some rows, all of the initial “Manzara” columns are 0. It is considered as there is no view at all. That factor is called “ManzaraYok”.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Relatedness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ManzaraSehir</td>
+<td align="right">0.0000758</td>
+</tr>
+<tr class="even">
+<td align="left">ManzaraDoga</td>
+<td align="right">0.0000823</td>
+</tr>
+<tr class="odd">
+<td align="left">ManzaraGol</td>
+<td align="right">0.0000444</td>
+</tr>
+<tr class="even">
+<td align="left">ManzaraDeniz</td>
+<td align="right">0.0002354</td>
+</tr>
+<tr class="odd">
+<td align="left">ManzaraBogaz</td>
+<td align="right">0.0000503</td>
+</tr>
+<tr class="even">
+<td align="left">Manzara</td>
+<td align="right">0.0014484</td>
+</tr>
+</tbody>
+</table>
+<p>The table shows attribute evaluations with respect to “FiyatTL”. It is clear that merging “Manzara-” columns increases the value.</p>
+</div>
+<div id="cephebati-cephedogu-cepheguney-and-cephekuzey-fields" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> “CepheBati”, “CepheDogu”, “CepheGuney” and “CepheKuzey” Fields</h3>
+<p>These four fields indicates the same attribute of the data that is the side attribute. Instead of using four different boolean-like columns, it can be merged as a factor column. That column is called “Cephe”. The inital four &quot;Cephe*&quot; columns are removed from the data. It can take following values:</p>
 <table>
 <thead>
 <tr class="header">
@@ -904,34 +1225,6 @@ knitr::kable(sapply(dataFrame, class), col.names = c(&quot;Column Types&quot;))<
 <td align="right">0.0003022</td>
 </tr>
 <tr class="odd">
-<td align="left">CepheBati</td>
-<td><strong>0.0204956</strong></td>
-<td><strong>0.0118641</strong></td>
-<td>0.0034406</td>
-<td align="right">-</td>
-</tr>
-<tr class="even">
-<td align="left">CepheDogu</td>
-<td><strong>0.0216051</strong></td>
-<td><strong>0.0253396</strong></td>
-<td>-</td>
-<td align="right">0.0035100</td>
-</tr>
-<tr class="odd">
-<td align="left">CepheGuney</td>
-<td>0.0014582</td>
-<td>-</td>
-<td><strong>0.0294348</strong></td>
-<td align="right"><strong>0.0140594</strong></td>
-</tr>
-<tr class="even">
-<td align="left">CepheKuzey</td>
-<td>-</td>
-<td>0.0012306</td>
-<td><strong>0.0211797</strong></td>
-<td align="right"><strong>0.0204972</strong></td>
-</tr>
-<tr class="odd">
 <td align="left">Isitma</td>
 <td>0.0053332</td>
 <td>0.0013525</td>
@@ -954,7 +1247,2654 @@ knitr::kable(sapply(dataFrame, class), col.names = c(&quot;Column Types&quot;))<
 </tr>
 </tbody>
 </table>
-<p>Here as it can be seen from the table each “Cephe-” columns there are different related attributes. Data is filtered for each columns by using top four attributes. If such data exist then the most used “Cephe-” value is added to the “Cephe” tag. Let’s take “CepheKuzey” as an example. Attributes “Ilce”, “Mahalle”, “CepheBati” and “CepheDogu” are the most related attributes for “CepheKuzey” column. This is why rows whose data mathes with a row, whose “CepheKuzey” attribute is NA, are found. After that the most common “CepheKuzey” value is used to fill the NA field.</p>
+<p>Here as it can be seen from the table each “Cephe-” columns there are different related attributes. Data is filtered for each columns by using top two attributes. If such data exist then the most used “Cephe-” value is added to the “Cephe” tag. Let’s take “CepheKuzey” as an example. Attributes “Ilce” and “Mahalle” are the most related attributes for “CepheKuzey” column. This is why rows whose data matches with a row, whose “Cephe” attribute is NA, are found.</p>
+<p>When those operations are made, the number of NA values for “Cephe” column is decreased to <strong>471</strong>. Now we can delete rows with NA values.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Relatedness</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CepheBati</td>
+<td align="right">0.0000584</td>
+</tr>
+<tr class="even">
+<td align="left">CepheDogu</td>
+<td align="right">0.0000558</td>
+</tr>
+<tr class="odd">
+<td align="left">CepheGuney</td>
+<td align="right">0.0001250</td>
+</tr>
+<tr class="even">
+<td align="left">CepheKuzey</td>
+<td align="right">0.0001024</td>
+</tr>
+<tr class="odd">
+<td align="left">Cephe</td>
+<td align="right">0.0009817</td>
+</tr>
+</tbody>
+</table>
+<p>The table shows the attribute evaluation values with respect to “FiyatTL”. The value is increased after these opeartions.</p>
+</div>
+</div>
+<div id="id-column-is-reomved." class="section level2">
+<h2><span class="header-section-number">2.5</span> Id column is reomved.</h2>
+<p>Id column is removed. It has unique value for every data. This means it does not contain any useful information.</p>
+</div>
+<div id="rows-with-the-na-values-are-deleted." class="section level2">
+<h2><span class="header-section-number">2.6</span> Rows with the NA values are deleted.</h2>
+<p>The “GercekYas” column there were <strong>33</strong> NA values. Since the number is pretty low these are removed.</p>
+</div>
+<div id="results-of-the-modification" class="section level2">
+<h2><span class="header-section-number">2.7</span> Results of the modification</h2>
+<p>All in all after some modifications on data, row count became 24773 and row count became 14. Column types are changed as following:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Column Types</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ilce</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">Mahalle</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">MustakilMi</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">OrijinalAlan</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="odd">
+<td align="left">AlanMetrekare</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">BanyoSayisi</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td align="left">FiyatTL</td>
+<td align="left">numeric</td>
+</tr>
+<tr class="even">
+<td align="left">ToplamKat</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td align="left">BulunduguKat</td>
+<td align="left">integer</td>
+</tr>
+<tr class="even">
+<td align="left">GercekYas</td>
+<td align="left">integer</td>
+</tr>
+<tr class="odd">
+<td align="left">Isitma</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">OdaBilgisi</td>
+<td align="left">factor</td>
+</tr>
+<tr class="odd">
+<td align="left">Manzara</td>
+<td align="left">factor</td>
+</tr>
+<tr class="even">
+<td align="left">Cephe</td>
+<td align="left">factor</td>
+</tr>
+</tbody>
+</table>
+<p>Moreover, all of the NA values are changed or removed from data.</p>
+</div>
+</div>
+<div id="outlier-detection" class="section level1">
+<h1><span class="header-section-number">3</span> Outlier Detection</h1>
+<div id="outlier-detection-with-iqr" class="section level2">
+<h2><span class="header-section-number">3.1</span> Outlier Detection with IQR</h2>
+<p>IQR method is used to detect the following columns’ outliers.</p>
+</div>
+<div id="iqr-results" class="section level2">
+<h2><span class="header-section-number">3.2</span> IQR Results</h2>
+<p><strong>“OrjinalAlan” Column</strong></p>
+<p>Outlier calculation with upper limit 0.985 and lower limit 0.015.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="6%"></col>
+<col width="6%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="8%"></col>
+<col width="7%"></col>
+<col width="4%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="6%"></col>
+<col width="9%"></col>
+<col width="6%"></col>
+<col width="8%"></col>
+<col width="6%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Ilce</th>
+<th align="left">Mahalle</th>
+<th align="left">MustakilMi</th>
+<th align="right">OrijinalAlan</th>
+<th align="right">AlanMetrekare</th>
+<th align="right">BanyoSayisi</th>
+<th align="right">FiyatTL</th>
+<th align="right">ToplamKat</th>
+<th align="right">BulunduguKat</th>
+<th align="right">GercekYas</th>
+<th align="left">Isitma</th>
+<th align="left">OdaBilgisi</th>
+<th align="left">Manzara</th>
+<th align="left">Cephe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Aksu</td>
+<td align="left">Çamköy</td>
+<td align="left">yes</td>
+<td align="right">1028</td>
+<td align="right">1028</td>
+<td align="right">2</td>
+<td align="right">268000</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="left">Yok</td>
+<td align="left">12 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Aksu</td>
+<td align="left">Çamköy</td>
+<td align="left">yes</td>
+<td align="right">1028</td>
+<td align="right">1028</td>
+<td align="right">2</td>
+<td align="right">280000</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="left">Soba</td>
+<td align="left">12 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Döşemealtı</td>
+<td align="left">Yeniköy</td>
+<td align="left">yes</td>
+<td align="right">800</td>
+<td align="right">672</td>
+<td align="right">2</td>
+<td align="right">790000</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 4</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Döşemealtı</td>
+<td align="left">Altınkale</td>
+<td align="left">yes</td>
+<td align="right">900</td>
+<td align="right">756</td>
+<td align="right">5</td>
+<td align="right">3657500</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">10 + 3</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Aksu</td>
+<td align="left">Kemerağzı</td>
+<td align="left">yes</td>
+<td align="right">900</td>
+<td align="right">756</td>
+<td align="right">7</td>
+<td align="right">4571875</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">8 + 3</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Kemer</td>
+<td align="left">Merkez</td>
+<td align="left">no</td>
+<td align="right">871</td>
+<td align="right">871</td>
+<td align="right">10</td>
+<td align="right">4725405</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">6 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Döşemealtı</td>
+<td align="left">Yeşilbayır</td>
+<td align="left">yes</td>
+<td align="right">800</td>
+<td align="right">672</td>
+<td align="right">6</td>
+<td align="right">5303375</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">1 + 3</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+</tbody>
+</table>
+<p><strong>“AlanMetreKare” Column</strong></p>
+<p>Outlier calculation with upper limit 0.985 and lower limit 0.015.</p>
+<table>
+<colgroup>
+<col width="6%"></col>
+<col width="10%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="8%"></col>
+<col width="7%"></col>
+<col width="4%"></col>
+<col width="5%"></col>
+<col width="7%"></col>
+<col width="5%"></col>
+<col width="8%"></col>
+<col width="6%"></col>
+<col width="8%"></col>
+<col width="6%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Ilce</th>
+<th align="left">Mahalle</th>
+<th align="left">MustakilMi</th>
+<th align="right">OrijinalAlan</th>
+<th align="right">AlanMetrekare</th>
+<th align="right">BanyoSayisi</th>
+<th align="right">FiyatTL</th>
+<th align="right">ToplamKat</th>
+<th align="right">BulunduguKat</th>
+<th align="right">GercekYas</th>
+<th align="left">Isitma</th>
+<th align="left">OdaBilgisi</th>
+<th align="left">Manzara</th>
+<th align="left">Cephe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Manavgat</td>
+<td align="left">Sorgun</td>
+<td align="left">yes</td>
+<td align="right">730</td>
+<td align="right">730</td>
+<td align="right">3</td>
+<td align="right">900000</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">12 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Aksu</td>
+<td align="left">Çamköy</td>
+<td align="left">yes</td>
+<td align="right">1028</td>
+<td align="right">1028</td>
+<td align="right">2</td>
+<td align="right">268000</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="left">Yok</td>
+<td align="left">12 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Aksu</td>
+<td align="left">Çamköy</td>
+<td align="left">yes</td>
+<td align="right">1028</td>
+<td align="right">1028</td>
+<td align="right">2</td>
+<td align="right">280000</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="left">Soba</td>
+<td align="left">12 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="even">
+<td align="left">Konyaaltı</td>
+<td align="left">Hisarçandır Köyü</td>
+<td align="left">yes</td>
+<td align="right">727</td>
+<td align="right">727</td>
+<td align="right">1</td>
+<td align="right">210000</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">12 + 2</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Kepez</td>
+<td align="left">Yeni</td>
+<td align="left">no</td>
+<td align="right">720</td>
+<td align="right">720</td>
+<td align="right">6</td>
+<td align="right">900000</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">15</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">8 + 1</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Döşemealtı</td>
+<td align="left">Altınkale</td>
+<td align="left">yes</td>
+<td align="right">900</td>
+<td align="right">756</td>
+<td align="right">5</td>
+<td align="right">3657500</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">10 + 3</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Aksu</td>
+<td align="left">Kemerağzı</td>
+<td align="left">yes</td>
+<td align="right">900</td>
+<td align="right">756</td>
+<td align="right">7</td>
+<td align="right">4571875</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">8 + 3</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Kemer</td>
+<td align="left">Merkez</td>
+<td align="left">no</td>
+<td align="right">871</td>
+<td align="right">871</td>
+<td align="right">10</td>
+<td align="right">4725405</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">6 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Konyaaltı</td>
+<td align="left">Altınkum</td>
+<td align="left">yes</td>
+<td align="right">750</td>
+<td align="right">750</td>
+<td align="right">6</td>
+<td align="right">2743125</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">18</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">12 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Kepez</td>
+<td align="left">Duacı</td>
+<td align="left">yes</td>
+<td align="right">750</td>
+<td align="right">750</td>
+<td align="right">5</td>
+<td align="right">2250000</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">6 + 1</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Alanya</td>
+<td align="left">Kargıcak</td>
+<td align="left">yes</td>
+<td align="right">780</td>
+<td align="right">780</td>
+<td align="right">5</td>
+<td align="right">3470968</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">9 + 4</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Kemer</td>
+<td align="left">Merkez</td>
+<td align="left">no</td>
+<td align="right">750</td>
+<td align="right">750</td>
+<td align="right">32</td>
+<td align="right">3931813</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">16</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">11 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+</tbody>
+</table>
+<p><strong>“FiyatTL” Column</strong></p>
+<p>Outlier calculation with upper limit 0.99 and lower limit 0.01.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="8%"></col>
+<col width="7%"></col>
+<col width="5%"></col>
+<col width="5%"></col>
+<col width="7%"></col>
+<col width="5%"></col>
+<col width="8%"></col>
+<col width="6%"></col>
+<col width="8%"></col>
+<col width="8%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Ilce</th>
+<th align="left">Mahalle</th>
+<th align="left">MustakilMi</th>
+<th align="right">OrijinalAlan</th>
+<th align="right">AlanMetrekare</th>
+<th align="right">BanyoSayisi</th>
+<th align="right">FiyatTL</th>
+<th align="right">ToplamKat</th>
+<th align="right">BulunduguKat</th>
+<th align="right">GercekYas</th>
+<th align="left">Isitma</th>
+<th align="left">OdaBilgisi</th>
+<th align="left">Manzara</th>
+<th align="left">Cephe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Alanya</td>
+<td align="left">Tophane</td>
+<td align="left">yes</td>
+<td align="right">500</td>
+<td align="right">420.0</td>
+<td align="right">4</td>
+<td align="right">9013273</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">400</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 3</td>
+<td align="left">GolBogazDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Güzeloba</td>
+<td align="left">no</td>
+<td align="right">372</td>
+<td align="right">372.0</td>
+<td align="right">2</td>
+<td align="right">4900420</td>
+<td align="right">8</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">12 + 2</td>
+<td align="left">BogazDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Çağlayan</td>
+<td align="left">no</td>
+<td align="right">300</td>
+<td align="right">300.0</td>
+<td align="right">3</td>
+<td align="right">4571875</td>
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">15</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">5 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Aksu</td>
+<td align="left">Kemerağzı</td>
+<td align="left">yes</td>
+<td align="right">900</td>
+<td align="right">756.0</td>
+<td align="right">7</td>
+<td align="right">4571875</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">8 + 3</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Döşemealtı</td>
+<td align="left">Yeşilbayır</td>
+<td align="left">yes</td>
+<td align="right">775</td>
+<td align="right">651.0</td>
+<td align="right">6</td>
+<td align="right">5486250</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">1 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Kılınçarslan</td>
+<td align="left">yes</td>
+<td align="right">380</td>
+<td align="right">380.0</td>
+<td align="right">6</td>
+<td align="right">7350630</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">80</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">10 + 5</td>
+<td align="left">GolDeniz</td>
+<td align="left">DoguBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Kemer</td>
+<td align="left">Merkez</td>
+<td align="left">no</td>
+<td align="right">871</td>
+<td align="right">871.0</td>
+<td align="right">10</td>
+<td align="right">4725405</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">6 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Konyaaltı</td>
+<td align="left">Gürsu</td>
+<td align="left">no</td>
+<td align="right">85</td>
+<td align="right">85.0</td>
+<td align="right">1</td>
+<td align="right">5852000</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Konyaaltı</td>
+<td align="left">Gürsu</td>
+<td align="left">no</td>
+<td align="right">180</td>
+<td align="right">180.0</td>
+<td align="right">2</td>
+<td align="right">7680750</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">DoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Çağlayan</td>
+<td align="left">no</td>
+<td align="right">700</td>
+<td align="right">588.0</td>
+<td align="right">4</td>
+<td align="right">5120496</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">2 + 2</td>
+<td align="left">GolDeniz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Kaş</td>
+<td align="left">Bayındır</td>
+<td align="left">yes</td>
+<td align="right">300</td>
+<td align="right">252.0</td>
+<td align="right">3</td>
+<td align="right">7000600</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">15</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">Gol</td>
+<td align="left">GuneyDoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Kılınçarslan</td>
+<td align="left">yes</td>
+<td align="right">450</td>
+<td align="right">378.0</td>
+<td align="right">6</td>
+<td align="right">6217750</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">100</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">5 + 4</td>
+<td align="left">GolDeniz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Alanya</td>
+<td align="left">Avsallar</td>
+<td align="left">yes</td>
+<td align="right">380</td>
+<td align="right">319.2</td>
+<td align="right">3</td>
+<td align="right">4389000</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">12 + 3</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Döşemealtı</td>
+<td align="left">Yeşilbayır</td>
+<td align="left">yes</td>
+<td align="right">800</td>
+<td align="right">672.0</td>
+<td align="right">6</td>
+<td align="right">5303375</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">1 + 3</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Alanya</td>
+<td align="left">Tophane</td>
+<td align="left">yes</td>
+<td align="right">450</td>
+<td align="right">378.0</td>
+<td align="right">4</td>
+<td align="right">10789625</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">400</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">1 + 3</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">yes</td>
+<td align="right">485</td>
+<td align="right">407.4</td>
+<td align="right">3</td>
+<td align="right">5486250</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 4</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyDogu</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">400</td>
+<td align="right">400.0</td>
+<td align="right">4</td>
+<td align="right">5760563</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">9 + 4</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">yes</td>
+<td align="right">450</td>
+<td align="right">450.0</td>
+<td align="right">3</td>
+<td align="right">5120500</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">12</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">12 + 3</td>
+<td align="left">GolSehirDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Konyaaltı</td>
+<td align="left">Altınkum</td>
+<td align="left">no</td>
+<td align="right">700</td>
+<td align="right">700.0</td>
+<td align="right">5</td>
+<td align="right">4500000</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">4 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuneyDogu</td>
+</tr>
+<tr class="even">
+<td align="left">Alanya</td>
+<td align="left">Avsallar</td>
+<td align="left">no</td>
+<td align="right">75</td>
+<td align="right">63.0</td>
+<td align="right">1</td>
+<td align="right">6766375</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Güzeloba</td>
+<td align="left">yes</td>
+<td align="right">430</td>
+<td align="right">430.0</td>
+<td align="right">4</td>
+<td align="right">4375375</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">20 + 20</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+</tbody>
+</table>
+<p><strong>“BanyoSayisi” Column</strong></p>
+<p>Outlier calculation with upper limit 0.99 and lower limit 0.01.</p>
+<table>
+<colgroup>
+<col width="5%"></col>
+<col width="5%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="8%"></col>
+<col width="6%"></col>
+<col width="5%"></col>
+<col width="5%"></col>
+<col width="7%"></col>
+<col width="5%"></col>
+<col width="8%"></col>
+<col width="6%"></col>
+<col width="8%"></col>
+<col width="11%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Ilce</th>
+<th align="left">Mahalle</th>
+<th align="left">MustakilMi</th>
+<th align="right">OrijinalAlan</th>
+<th align="right">AlanMetrekare</th>
+<th align="right">BanyoSayisi</th>
+<th align="right">FiyatTL</th>
+<th align="right">ToplamKat</th>
+<th align="right">BulunduguKat</th>
+<th align="right">GercekYas</th>
+<th align="left">Isitma</th>
+<th align="left">OdaBilgisi</th>
+<th align="left">Manzara</th>
+<th align="left">Cephe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Kepez</td>
+<td align="left">Ahatlı</td>
+<td align="left">no</td>
+<td align="right">100</td>
+<td align="right">100.0</td>
+<td align="right">11</td>
+<td align="right">195000.0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuneyDoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Kemer</td>
+<td align="left">Merkez</td>
+<td align="left">no</td>
+<td align="right">871</td>
+<td align="right">871.0</td>
+<td align="right">10</td>
+<td align="right">4725405.0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">6 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Konyaaltı</td>
+<td align="left">Liman</td>
+<td align="left">no</td>
+<td align="right">67</td>
+<td align="right">67.0</td>
+<td align="right">16</td>
+<td align="right">303572.5</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">2 + 1</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">GuneyDoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Kepez</td>
+<td align="left">Kültür</td>
+<td align="left">no</td>
+<td align="right">750</td>
+<td align="right">630.0</td>
+<td align="right">20</td>
+<td align="right">2050000.0</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 1</td>
+<td align="left">Deniz</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Kepez</td>
+<td align="left">Kuzeyyaka</td>
+<td align="left">no</td>
+<td align="right">135</td>
+<td align="right">113.4</td>
+<td align="right">14</td>
+<td align="right">190000.0</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">DoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Kepez</td>
+<td align="left">Gülveren</td>
+<td align="left">no</td>
+<td align="right">600</td>
+<td align="right">600.0</td>
+<td align="right">16</td>
+<td align="right">1900000.0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">11</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">4 + 4</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuneyDogu</td>
+</tr>
+<tr class="odd">
+<td align="left">Kemer</td>
+<td align="left">Merkez</td>
+<td align="left">no</td>
+<td align="right">750</td>
+<td align="right">750.0</td>
+<td align="right">32</td>
+<td align="right">3931812.5</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">16</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">11 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+</tbody>
+</table>
+<p><strong>“ToplamKat” Column</strong></p>
+<p>Outlier calculation with upper limit 0.9 and lower limit 0.1.</p>
+<table>
+<colgroup>
+<col width="6%"></col>
+<col width="6%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="8%"></col>
+<col width="7%"></col>
+<col width="4%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="6%"></col>
+<col width="9%"></col>
+<col width="6%"></col>
+<col width="8%"></col>
+<col width="9%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Ilce</th>
+<th align="left">Mahalle</th>
+<th align="left">MustakilMi</th>
+<th align="right">OrijinalAlan</th>
+<th align="right">AlanMetrekare</th>
+<th align="right">BanyoSayisi</th>
+<th align="right">FiyatTL</th>
+<th align="right">ToplamKat</th>
+<th align="right">BulunduguKat</th>
+<th align="right">GercekYas</th>
+<th align="left">Isitma</th>
+<th align="left">OdaBilgisi</th>
+<th align="left">Manzara</th>
+<th align="left">Cephe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Alanya</td>
+<td align="left">Mahmutlar</td>
+<td align="left">no</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">1</td>
+<td align="right">256025</td>
+<td align="right">20</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">2 + 1</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">KuzeyDogu</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">110</td>
+<td align="right">110</td>
+<td align="right">1</td>
+<td align="right">550000</td>
+<td align="right">18</td>
+<td align="right">14</td>
+<td align="right">7</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">Bogaz</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">360</td>
+<td align="right">360</td>
+<td align="right">2</td>
+<td align="right">850000</td>
+<td align="right">18</td>
+<td align="right">-1</td>
+<td align="right">12</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">1 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">100</td>
+<td align="right">100</td>
+<td align="right">1</td>
+<td align="right">520000</td>
+<td align="right">18</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">GuneyDoguBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Ermenek</td>
+<td align="left">no</td>
+<td align="right">130</td>
+<td align="right">130</td>
+<td align="right">1</td>
+<td align="right">220000</td>
+<td align="right">18</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Güzeloba</td>
+<td align="left">no</td>
+<td align="right">130</td>
+<td align="right">130</td>
+<td align="right">1</td>
+<td align="right">215000</td>
+<td align="right">18</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">9 + 2</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Güzeloba</td>
+<td align="left">no</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">1</td>
+<td align="right">220000</td>
+<td align="right">18</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">9 + 2</td>
+<td align="left">GolBogaz</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Kışla</td>
+<td align="left">no</td>
+<td align="right">200</td>
+<td align="right">200</td>
+<td align="right">2</td>
+<td align="right">590000</td>
+<td align="right">121</td>
+<td align="right">4</td>
+<td align="right">20</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">12 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">DoguBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Güzeloba</td>
+<td align="left">no</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">1</td>
+<td align="right">210000</td>
+<td align="right">18</td>
+<td align="right">12</td>
+<td align="right">5</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">Gol</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Ermenek</td>
+<td align="left">no</td>
+<td align="right">130</td>
+<td align="right">130</td>
+<td align="right">1</td>
+<td align="right">195000</td>
+<td align="right">18</td>
+<td align="right">14</td>
+<td align="right">5</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">Gol</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Ermenek</td>
+<td align="left">no</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">1</td>
+<td align="right">200000</td>
+<td align="right">18</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">9 + 2</td>
+<td align="left">GolBogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">95</td>
+<td align="right">95</td>
+<td align="right">1</td>
+<td align="right">450000</td>
+<td align="right">18</td>
+<td align="right">7</td>
+<td align="right">12</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyDoguBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Aksu</td>
+<td align="left">Altıntaş</td>
+<td align="left">no</td>
+<td align="right">135</td>
+<td align="right">135</td>
+<td align="right">1</td>
+<td align="right">200000</td>
+<td align="right">18</td>
+<td align="right">7</td>
+<td align="right">10</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolSehirDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Korkuteli</td>
+<td align="left">Uzunoluk</td>
+<td align="left">yes</td>
+<td align="right">200</td>
+<td align="right">200</td>
+<td align="right">2</td>
+<td align="right">235000</td>
+<td align="right">123</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">12 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Guney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">100</td>
+<td align="right">100</td>
+<td align="right">1</td>
+<td align="right">460000</td>
+<td align="right">18</td>
+<td align="right">11</td>
+<td align="right">12</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDeniz</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="even">
+<td align="left">Alanya</td>
+<td align="left">Kargıcak</td>
+<td align="left">no</td>
+<td align="right">100</td>
+<td align="right">100</td>
+<td align="right">1</td>
+<td align="right">375000</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyDogu</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">110</td>
+<td align="right">110</td>
+<td align="right">1</td>
+<td align="right">480000</td>
+<td align="right">18</td>
+<td align="right">15</td>
+<td align="right">12</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Guney</td>
+</tr>
+</tbody>
+</table>
+<p><strong>“BulunduguKat” Column</strong></p>
+<p>Outlier calculation with upper limit 0.93 and lower limit 0.07.</p>
+<table style="width:100%;">
+<colgroup>
+<col width="5%"></col>
+<col width="7%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="8%"></col>
+<col width="7%"></col>
+<col width="5%"></col>
+<col width="5%"></col>
+<col width="7%"></col>
+<col width="5%"></col>
+<col width="8%"></col>
+<col width="6%"></col>
+<col width="8%"></col>
+<col width="8%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Ilce</th>
+<th align="left">Mahalle</th>
+<th align="left">MustakilMi</th>
+<th align="right">OrijinalAlan</th>
+<th align="right">AlanMetrekare</th>
+<th align="right">BanyoSayisi</th>
+<th align="right">FiyatTL</th>
+<th align="right">ToplamKat</th>
+<th align="right">BulunduguKat</th>
+<th align="right">GercekYas</th>
+<th align="left">Isitma</th>
+<th align="left">OdaBilgisi</th>
+<th align="left">Manzara</th>
+<th align="left">Cephe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Konyaaltı</td>
+<td align="left">Hurma</td>
+<td align="left">no</td>
+<td align="right">215</td>
+<td align="right">180.6</td>
+<td align="right">3</td>
+<td align="right">515000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">1</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 4</td>
+<td align="left">Gol</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Zümrütova</td>
+<td align="left">no</td>
+<td align="right">240</td>
+<td align="right">201.6</td>
+<td align="right">3</td>
+<td align="right">850000.0</td>
+<td align="right">15</td>
+<td align="right">14</td>
+<td align="right">13</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">5 + 3</td>
+<td align="left">BogazDoga</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Kepez</td>
+<td align="left">Ahatlı</td>
+<td align="left">no</td>
+<td align="right">130</td>
+<td align="right">109.2</td>
+<td align="right">1</td>
+<td align="right">175000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">23</td>
+<td align="left">Soba</td>
+<td align="left">9 + 2</td>
+<td align="left">GolBogaz</td>
+<td align="left">Dogu</td>
+</tr>
+<tr class="even">
+<td align="left">Konyaaltı</td>
+<td align="left">Toros</td>
+<td align="left">no</td>
+<td align="right">145</td>
+<td align="right">145.0</td>
+<td align="right">1</td>
+<td align="right">285000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">Gol</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">150</td>
+<td align="right">150.0</td>
+<td align="right">1</td>
+<td align="right">367000.0</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">18</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Guney</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Meydankavağı</td>
+<td align="left">no</td>
+<td align="right">165</td>
+<td align="right">165.0</td>
+<td align="right">2</td>
+<td align="right">300000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">14</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Guney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">235</td>
+<td align="right">235.0</td>
+<td align="right">2</td>
+<td align="right">1150000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">16</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">9 + 2</td>
+<td align="left">Bogaz</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">235</td>
+<td align="right">235.0</td>
+<td align="right">2</td>
+<td align="right">1150000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">16</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">145</td>
+<td align="right">145.0</td>
+<td align="right">1</td>
+<td align="right">310000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">16</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">Gol</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">270</td>
+<td align="right">270.0</td>
+<td align="right">2</td>
+<td align="right">1180000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">20</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">340</td>
+<td align="right">285.6</td>
+<td align="right">3</td>
+<td align="right">2669975.0</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">9 + 4</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">150</td>
+<td align="right">150.0</td>
+<td align="right">1</td>
+<td align="right">367000.0</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">20</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Guney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">150</td>
+<td align="right">150.0</td>
+<td align="right">1</td>
+<td align="right">350000.0</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">18</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDeniz</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">110</td>
+<td align="right">110.0</td>
+<td align="right">1</td>
+<td align="right">550000.0</td>
+<td align="right">18</td>
+<td align="right">14</td>
+<td align="right">7</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">Bogaz</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">240</td>
+<td align="right">240.0</td>
+<td align="right">4</td>
+<td align="right">2600000.0</td>
+<td align="right">16</td>
+<td align="right">15</td>
+<td align="right">10</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 4</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Guney</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">100</td>
+<td align="right">100.0</td>
+<td align="right">1</td>
+<td align="right">520000.0</td>
+<td align="right">18</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">GuneyDoguBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">450</td>
+<td align="right">378.0</td>
+<td align="right">3</td>
+<td align="right">1828750.0</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">8</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">5 + 3</td>
+<td align="left">Gol</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">145</td>
+<td align="right">145.0</td>
+<td align="right">1</td>
+<td align="right">310000.0</td>
+<td align="right">15</td>
+<td align="right">13</td>
+<td align="right">23</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Dogu</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">340</td>
+<td align="right">340.0</td>
+<td align="right">3</td>
+<td align="right">2011625.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">12</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">5 + 3</td>
+<td align="left">GolBogazDoga</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Yeşilbahçe</td>
+<td align="left">no</td>
+<td align="right">200</td>
+<td align="right">168.0</td>
+<td align="right">2</td>
+<td align="right">2432237.5</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">8</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">Bogaz</td>
+<td align="left">Guney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">300</td>
+<td align="right">300.0</td>
+<td align="right">3</td>
+<td align="right">3500000.0</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">7</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">5 + 3</td>
+<td align="left">BogazDoga</td>
+<td align="left">Dogu</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">365</td>
+<td align="right">306.6</td>
+<td align="right">3</td>
+<td align="right">2011625.0</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">6</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Aksu</td>
+<td align="left">Altıntaş</td>
+<td align="left">no</td>
+<td align="right">110</td>
+<td align="right">110.0</td>
+<td align="right">1</td>
+<td align="right">220000.0</td>
+<td align="right">16</td>
+<td align="right">14</td>
+<td align="right">9</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">Gol</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">300</td>
+<td align="right">300.0</td>
+<td align="right">3</td>
+<td align="right">2011625.0</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 4</td>
+<td align="left">Bogaz</td>
+<td align="left">Guney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">170</td>
+<td align="right">170.0</td>
+<td align="right">1</td>
+<td align="right">450000.0</td>
+<td align="right">16</td>
+<td align="right">15</td>
+<td align="right">16</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Güzeloba</td>
+<td align="left">no</td>
+<td align="right">450</td>
+<td align="right">378.0</td>
+<td align="right">2</td>
+<td align="right">1750000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">7</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">5 + 3</td>
+<td align="left">Bogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">240</td>
+<td align="right">240.0</td>
+<td align="right">3</td>
+<td align="right">2600000.0</td>
+<td align="right">16</td>
+<td align="right">15</td>
+<td align="right">5</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">9 + 4</td>
+<td align="left">BogazDoga</td>
+<td align="left">GuneyDoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">165</td>
+<td align="right">165.0</td>
+<td align="right">2</td>
+<td align="right">945081.0</td>
+<td align="right">16</td>
+<td align="right">15</td>
+<td align="right">1</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Ermenek</td>
+<td align="left">no</td>
+<td align="right">130</td>
+<td align="right">130.0</td>
+<td align="right">1</td>
+<td align="right">195000.0</td>
+<td align="right">18</td>
+<td align="right">14</td>
+<td align="right">5</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">Gol</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">95</td>
+<td align="right">95.0</td>
+<td align="right">1</td>
+<td align="right">290000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">5</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Guney</td>
+</tr>
+<tr class="odd">
+<td align="left">Kepez</td>
+<td align="left">Yeni Doğan</td>
+<td align="left">no</td>
+<td align="right">128</td>
+<td align="right">128.0</td>
+<td align="right">1</td>
+<td align="right">210000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">20</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">DoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Konyaaltı</td>
+<td align="left">Pınarbaşı</td>
+<td align="left">no</td>
+<td align="right">380</td>
+<td align="right">319.2</td>
+<td align="right">3</td>
+<td align="right">800000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">8 + 4</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">300</td>
+<td align="right">252.0</td>
+<td align="right">3</td>
+<td align="right">1395000.0</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">10</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">12 + 2</td>
+<td align="left">GolBogaz</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">300</td>
+<td align="right">300.0</td>
+<td align="right">3</td>
+<td align="right">2011625.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">12</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 3</td>
+<td align="left">BogazDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">380</td>
+<td align="right">319.2</td>
+<td align="right">3</td>
+<td align="right">2743125.0</td>
+<td align="right">14</td>
+<td align="right">13</td>
+<td align="right">15</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 4</td>
+<td align="left">Bogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Alanya</td>
+<td align="left">Mahmutlar</td>
+<td align="left">no</td>
+<td align="right">140</td>
+<td align="right">117.6</td>
+<td align="right">2</td>
+<td align="right">466331.2</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">2</td>
+<td align="left">Yerden Isıtma</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Konyaaltı</td>
+<td align="left">Liman</td>
+<td align="left">no</td>
+<td align="right">135</td>
+<td align="right">135.0</td>
+<td align="right">2</td>
+<td align="right">280000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">15</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">300</td>
+<td align="right">300.0</td>
+<td align="right">2</td>
+<td align="right">2157925.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">20</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">12 + 2</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">95</td>
+<td align="right">95.0</td>
+<td align="right">2</td>
+<td align="right">325000.0</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">12</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">Bogaz</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="even">
+<td align="left">Konyaaltı</td>
+<td align="left">Uncalı</td>
+<td align="left">no</td>
+<td align="right">160</td>
+<td align="right">160.0</td>
+<td align="right">2</td>
+<td align="right">375000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">4</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Konyaaltı</td>
+<td align="left">Akkuyu</td>
+<td align="left">no</td>
+<td align="right">155</td>
+<td align="right">155.0</td>
+<td align="right">2</td>
+<td align="right">385000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">4</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Soğuksu</td>
+<td align="left">no</td>
+<td align="right">350</td>
+<td align="right">294.0</td>
+<td align="right">2</td>
+<td align="right">1000000.0</td>
+<td align="right">17</td>
+<td align="right">17</td>
+<td align="right">8</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">12 + 3</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Gebizli</td>
+<td align="left">no</td>
+<td align="right">145</td>
+<td align="right">145.0</td>
+<td align="right">1</td>
+<td align="right">150000.0</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">3</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Çağlayan</td>
+<td align="left">no</td>
+<td align="right">100</td>
+<td align="right">100.0</td>
+<td align="right">1</td>
+<td align="right">260000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">10</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">Bogaz</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Kepez</td>
+<td align="left">Yeni Doğan</td>
+<td align="left">no</td>
+<td align="right">150</td>
+<td align="right">150.0</td>
+<td align="right">1</td>
+<td align="right">240000.0</td>
+<td align="right">14</td>
+<td align="right">13</td>
+<td align="right">10</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">Gol</td>
+<td align="left">Dogu</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">200</td>
+<td align="right">200.0</td>
+<td align="right">2</td>
+<td align="right">545000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">14</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">12 + 2</td>
+<td align="left">Bogaz</td>
+<td align="left">GuneyDoguBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">135</td>
+<td align="right">135.0</td>
+<td align="right">1</td>
+<td align="right">450000.0</td>
+<td align="right">15</td>
+<td align="right">13</td>
+<td align="right">20</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="even">
+<td align="left">Kepez</td>
+<td align="left">Yeni Doğan</td>
+<td align="left">no</td>
+<td align="right">125</td>
+<td align="right">125.0</td>
+<td align="right">2</td>
+<td align="right">205000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">18</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Alanya</td>
+<td align="left">Mahmutlar</td>
+<td align="left">no</td>
+<td align="right">140</td>
+<td align="right">117.6</td>
+<td align="right">3</td>
+<td align="right">3657500.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">4</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyDogu</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">90</td>
+<td align="right">90.0</td>
+<td align="right">1</td>
+<td align="right">305000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">4</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDeniz</td>
+<td align="left">KuzeyDoguBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Altındağ</td>
+<td align="left">no</td>
+<td align="right">160</td>
+<td align="right">160.0</td>
+<td align="right">1</td>
+<td align="right">310000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">20</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolSehirDoga</td>
+<td align="left">KuzeyDoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">180</td>
+<td align="right">180.0</td>
+<td align="right">2</td>
+<td align="right">549000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">17</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">12 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">145</td>
+<td align="right">145.0</td>
+<td align="right">1</td>
+<td align="right">540000.0</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">20</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Meltem</td>
+<td align="left">no</td>
+<td align="right">160</td>
+<td align="right">160.0</td>
+<td align="right">1</td>
+<td align="right">497000.0</td>
+<td align="right">15</td>
+<td align="right">13</td>
+<td align="right">26</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">225</td>
+<td align="right">225.0</td>
+<td align="right">2</td>
+<td align="right">2926000.0</td>
+<td align="right">16</td>
+<td align="right">15</td>
+<td align="right">7</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">9 + 2</td>
+<td align="left">Bogaz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">110</td>
+<td align="right">110.0</td>
+<td align="right">2</td>
+<td align="right">450000.0</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">10</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Dogu</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">95</td>
+<td align="right">95.0</td>
+<td align="right">2</td>
+<td align="right">300000.0</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="right">10</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyDoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Gebizli</td>
+<td align="left">no</td>
+<td align="right">150</td>
+<td align="right">150.0</td>
+<td align="right">1</td>
+<td align="right">145000.0</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">8</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Çağlayan</td>
+<td align="left">no</td>
+<td align="right">350</td>
+<td align="right">350.0</td>
+<td align="right">3</td>
+<td align="right">640000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">11</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 4</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Çağlayan</td>
+<td align="left">no</td>
+<td align="right">190</td>
+<td align="right">190.0</td>
+<td align="right">1</td>
+<td align="right">600000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Gebizli</td>
+<td align="left">no</td>
+<td align="right">150</td>
+<td align="right">150.0</td>
+<td align="right">1</td>
+<td align="right">148000.0</td>
+<td align="right">15</td>
+<td align="right">13</td>
+<td align="right">8</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">320</td>
+<td align="right">268.8</td>
+<td align="right">3</td>
+<td align="right">2683730.0</td>
+<td align="right">15</td>
+<td align="right">14</td>
+<td align="right">14</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 4</td>
+<td align="left">Bogaz</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Fener</td>
+<td align="left">no</td>
+<td align="right">60</td>
+<td align="right">60.0</td>
+<td align="right">1</td>
+<td align="right">220000.0</td>
+<td align="right">14</td>
+<td align="right">13</td>
+<td align="right">15</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">2 + 1</td>
+<td align="left">Bogaz</td>
+<td align="left">KuzeyDoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">235</td>
+<td align="right">235.0</td>
+<td align="right">2</td>
+<td align="right">1150000.0</td>
+<td align="right">13</td>
+<td align="right">13</td>
+<td align="right">16</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">KuzeyGuney</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Şirinyalı</td>
+<td align="left">no</td>
+<td align="right">110</td>
+<td align="right">110.0</td>
+<td align="right">1</td>
+<td align="right">480000.0</td>
+<td align="right">18</td>
+<td align="right">15</td>
+<td align="right">12</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Guney</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gercek Yas</strong></p>
+<p>Outlier calculation with upper limit 0.95 and lower limit 0.05.</p>
+<table>
+<colgroup>
+<col width="5%"></col>
+<col width="8%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="7%"></col>
+<col width="6%"></col>
+<col width="6%"></col>
+<col width="5%"></col>
+<col width="7%"></col>
+<col width="6%"></col>
+<col width="8%"></col>
+<col width="6%"></col>
+<col width="7%"></col>
+<col width="10%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Ilce</th>
+<th align="left">Mahalle</th>
+<th align="left">MustakilMi</th>
+<th align="right">OrijinalAlan</th>
+<th align="right">AlanMetrekare</th>
+<th align="right">BanyoSayisi</th>
+<th align="right">FiyatTL</th>
+<th align="right">ToplamKat</th>
+<th align="right">BulunduguKat</th>
+<th align="right">GercekYas</th>
+<th align="left">Isitma</th>
+<th align="left">OdaBilgisi</th>
+<th align="left">Manzara</th>
+<th align="left">Cephe</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Alanya</td>
+<td align="left">Tophane</td>
+<td align="left">yes</td>
+<td align="right">500</td>
+<td align="right">420</td>
+<td align="right">4</td>
+<td align="right">9013272.5</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">400</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 3</td>
+<td align="left">GolBogazDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Bahçelievler</td>
+<td align="left">no</td>
+<td align="right">110</td>
+<td align="right">110</td>
+<td align="right">1</td>
+<td align="right">490000.0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">49</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuneyDoguBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Kılınçarslan</td>
+<td align="left">yes</td>
+<td align="right">380</td>
+<td align="right">380</td>
+<td align="right">6</td>
+<td align="right">7350630.0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">80</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">10 + 5</td>
+<td align="left">GolDeniz</td>
+<td align="left">DoguBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Güzeloba</td>
+<td align="left">no</td>
+<td align="right">95</td>
+<td align="right">95</td>
+<td align="right">1</td>
+<td align="right">267000.0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">201</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">GolDeniz</td>
+<td align="left">KuzeyBati</td>
+</tr>
+<tr class="odd">
+<td align="left">Muratpaşa</td>
+<td align="left">Balbey</td>
+<td align="left">no</td>
+<td align="right">184</td>
+<td align="right">184</td>
+<td align="right">3</td>
+<td align="right">1750000.0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">50</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">8 + 3</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyGuneyBati</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Kılınçarslan</td>
+<td align="left">yes</td>
+<td align="right">450</td>
+<td align="right">378</td>
+<td align="right">6</td>
+<td align="right">6217750.0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">100</td>
+<td align="left">Merkezi Sistem</td>
+<td align="left">5 + 4</td>
+<td align="left">GolDeniz</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Konyaaltı</td>
+<td align="left">Öğretmenevleri</td>
+<td align="left">no</td>
+<td align="right">140</td>
+<td align="right">140</td>
+<td align="right">1</td>
+<td align="right">310000.0</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">2147483647</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">9 + 2</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="even">
+<td align="left">Alanya</td>
+<td align="left">Tophane</td>
+<td align="left">yes</td>
+<td align="right">450</td>
+<td align="right">378</td>
+<td align="right">4</td>
+<td align="right">10789625.0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">400</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">1 + 3</td>
+<td align="left">GolDenizDoga</td>
+<td align="left">Kuzey</td>
+</tr>
+<tr class="odd">
+<td align="left">Alanya</td>
+<td align="left">Mahmutlar</td>
+<td align="left">no</td>
+<td align="right">155</td>
+<td align="right">155</td>
+<td align="right">1</td>
+<td align="right">347462.5</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">68</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">5 + 0</td>
+<td align="left">BogazDoga</td>
+<td align="left">KuzeyDogu</td>
+</tr>
+<tr class="even">
+<td align="left">Muratpaşa</td>
+<td align="left">Güzeloba</td>
+<td align="left">no</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">1</td>
+<td align="right">138000.0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">60</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">2 + 1</td>
+<td align="left">GolDenizSehir</td>
+<td align="left">KuzeyDogu</td>
+</tr>
+<tr class="odd">
+<td align="left">Konyaaltı</td>
+<td align="left">Hurma</td>
+<td align="left">no</td>
+<td align="right">65</td>
+<td align="right">65</td>
+<td align="right">1</td>
+<td align="right">138000.0</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">60</td>
+<td align="left">Doğalgaz/Kombi</td>
+<td align="left">2 + 1</td>
+<td align="left">GolDeniz</td>
+<td align="left">KuzeyDoguBati</td>
+</tr>
+</tbody>
+</table>
+<div id="should-outliers-be-deleted" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Should Outliers Be Deleted?</h3>
+<p>Tables displays outliers that are detected with the given parameters. For most of the columns it is not reasonable to delete found data. Because the outliers are found according to only one attribute. Also the data which is detected as outliers are meaningful if it is analyzed. This observation is valid for “OrjinalAlan”, “AlanMetreKare”, “FiyatTL”, “BanyoSayisi”, “ToplamKat” and “BulunduguKat”.</p>
+<p>On the other hand outliers that are detected for “GercekYas” are pretty unusual. For example, a 10 + 5 house cannot be 380 meter square. Another example is that a flat with 95 meter square which is 201 age and 5 + 0. Also there is a flat which is built before prehistoric ages(!). Those data seems wrong this is why they are deleted.</p>
+</div>
 </div>
 </div>
 
