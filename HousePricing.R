@@ -20,8 +20,6 @@ data <- antalya_train
 dataFrame <- data.frame(data)
 dataDimension <- dim(data)
 
-dataDimension
-
 dataFrame[dataFrame==""]<-NA
 
 # Id is removed because for each row is unique
@@ -103,10 +101,7 @@ for (i in 1:dataDimension[1]) {
       if(dim(firstFilter)[1] == 0) {
         print("CANNOT PASS FIRST FILTER")
       } else {
-        x <- firstFilter[firstFilter$BanyoSayisi == dataFrame$BanyoSayisi[i]  & 
-                           firstFilter$BulunduguKat > dataFrame$BulunduguKat[i] - 3 
-                         & firstFilter$BulunduguKat < dataFrame$BulunduguKat[i] + 3
-                         & firstFilter$Fiyat < dataFrame$Fiyat[i] + 20000
+        x <- firstFilter[firstFilter$Fiyat < dataFrame$Fiyat[i] + 20000
                          & firstFilter$Fiyat > dataFrame$Fiyat[i] - 20000,]
         if (dim(firstFilter)[1] == 0) {
           print("CANNOT PASS SECOND FILTER")
@@ -124,7 +119,10 @@ for (i in 1:dataDimension[1]) {
 }
 
 # ---------------------------------------------------------------------------
-
+kable(attrEval(CepheKuzey ~ . , dataFrame, estimator = "Gini"))
+kable(attrEval(CepheGuney ~ . , dataFrame, estimator = "Gini"))
+kable(attrEval(CepheDogu ~ . , dataFrame, estimator = "Gini"))
+kable(attrEval(CepheBati ~ . , dataFrame, estimator = "Gini"))
 # ---------------------------------------------------------------------------
 # cephe => Bati Dogu Guney Kuzey
 dataFrame$Cephe <- NA
@@ -153,16 +151,14 @@ for (i in 1:dataDimension[1]) {
     if(dataFrame$MustakilMi[i]=="yes") {
       frontValue = "KuzeyGuneyDoguBati"
     } else {
-      
+
       firstFilter <- dataFrame[dataFrame$Ilce == dataFrame$Ilce[i] &
                         dataFrame$Mahalle == dataFrame$Mahalle[i] &
-                        dataFrame$MustakilMi[i]=="no" &
-                        dataFrame$OdaBilgisi == dataFrame$OdaBilgisi[i] &
-                        dataFrame$BanyoSayisi == dataFrame$BanyoSayisi[i]  & 
-                        dataFrame$BulunduguKat > dataFrame$BulunduguKat[i] - 3 
-                      & dataFrame$BulunduguKat < dataFrame$BulunduguKat[i] + 3
-                      & dataFrame$Fiyat < dataFrame$Fiyat[i] + 20000
-                      & dataFrame$Fiyat > dataFrame$Fiyat[i] - 20000,]
+                        dataFrame$OdaBilgisi == dataFrame$OdaBilgisi[i]
+                      & dataFrame$OrijinalAlan  < dataFrame$OrijinalAlan [i] + 30
+                      & dataFrame$OrijinalAlan  > dataFrame$OrijinalAlan [i] - 30
+                      & dataFrame$AlanMetrekare   < dataFrame$AlanMetrekare  [i] + 30
+                      & dataFrame$AlanMetrekare   > dataFrame$AlanMetrekare  [i] - 30,]
       if(dim(firstFilter)[1] == 0) {
         print("CANNOT FOUND")
         frontValue <- NA
@@ -170,28 +166,27 @@ for (i in 1:dataDimension[1]) {
         medianKuzeyResult <- median(firstFilter$CepheKuzey, na.rm=TRUE)
         if (!is.na(medianKuzeyResult) && medianKuzeyResult == 1) {
           frontValue = paste0(frontValue, "Kuzey")
-        } 
-        
+        }
+
         medianGuneyResult <- median(firstFilter$CepheGuney, na.rm=TRUE)
         if (!is.na(medianGuneyResult) && medianGuneyResult == 1) {
           frontValue = paste0(frontValue, "Guney")
-        } 
-        
+        }
+
         medianDoguResult <- median(firstFilter$CepheDogu, na.rm=TRUE)
         if (!is.na(medianDoguResult) && medianDoguResult == 1) {
           frontValue = paste0(frontValue, "Dogu")
-        } 
-        
+        }
+
         medianBatiResult <- median(firstFilter$CepheBati, na.rm=TRUE)
         if (!is.na(medianBatiResult) && medianBatiResult == 1) {
           frontValue = paste0(frontValue, "Bati")
-        } 
-        
+        }
+
         if(frontValue == "") {
            frontValue <- NA
-        } 
+        }
       }
-
     }
   }
   
@@ -199,7 +194,7 @@ for (i in 1:dataDimension[1]) {
 }
 
 naTable <- colSums(is.na(dataFrame))
-print(naTable)
+kable(naTable)
 
 # ---------------------------------------------------------------------------
 
@@ -266,42 +261,69 @@ print(dim(dataFrame))
 
 dataFrame <- dataFrame[-c(outs$positions), ]
 
-print(dim(dataFrame))
+# ********************************************************
+# print(dim(dataFrame))
+# 
+# 
+# boxplot(dataFrame$FiyatTL, xlab = "Fiyat")
+#  
+# freqOcc <- table(dataFrame$FiyatTL)
+# barplot(freqOcc, main = "Fiyat")
+# 
+# hist(dataFrame$FiyatTL, xlab = "Fiyat TL")
+# 
+# res <- discretize(dataFrame$FiyatTL, breaks = 5)
+# dataFrame$FiyatTL<-res
 
-
-boxplot(dataFrame$FiyatTL, xlab = "Fiyat")
- 
-freqOcc <- table(dataFrame$FiyatTL)
-barplot(freqOcc, main = "Fiyat")
-
-hist(dataFrame$FiyatTL, xlab = "Fiyat TL")
-
-res <- discretize(dataFrame$FiyatTL, breaks = 5)
-dataFrame$FiyatTL<-res
-
-freqOcc <- table(res)
-barplot(freqOcc, main = "Fiyat")
-
+# freqOcc <- table(res)
+# barplot(freqOcc, main = "Fiyat")
+# *********************************************************
 dataFrame$OdaBilgisi <- factor(dataFrame$OdaBilgisi, labels = c(unique(dataFrame$OdaBilgisi)))
 levels(dataFrame$OdaBilgisi)
 
 dataFrame$Manzara <- factor(dataFrame$Manzara, labels = c(unique(dataFrame$Manzara)))
 levels(dataFrame$Manzara)
+count.levels(dataFrame$Manzara)
+
+kable(dataFrame %>% 
+  group_by(Manzara) %>%
+  summarise(no_rows = length(Manzara)))
 
 dataFrame$Cephe <- factor(dataFrame$Cephe, labels = c(unique(dataFrame$Cephe)))
 levels(dataFrame$Cephe)
+kable(dataFrame %>% 
+        group_by(Cephe) %>%
+        summarise(no_rows = length(Cephe)))
 
-print("Column Types: ")
-columnTypes <- sapply(dataFrame, class)
-print(columnTypes)
 
-samp <- sample(1:nrow(dataFrame), 120)
-tr_set <- dataFrame[samp, ]
-tst_set <- dataFrame[-samp, ]
-model <- rpartXse(FiyatTL ~ ., tr_set, se = 0.5)
-predicted <- predict(model, tst_set, type = "class")
-head(predicted)
+attrEval(FiyatTL ~ . , dataFrame, estimator = "Gini")
+attrEval(FiyatTL ~ . , antalya_train, estimator = "Gini")
 
-table(tst_set$FiyatTL, predicted)
-errorRate <- sum(predicted != tst_set$FiyatTL) / nrow(tst_set)
-errorRate
+levels(dataFrame$Cephe)
+# *************************************************************************
+# factorData <- select_if(dataFrame, is.factor)
+# transactionData <- as(factorData, "transactions")
+# transactionData
+# summary(transactionData)
+# 
+# ars <- apriori(transactionData, parameter = list(
+#   support = 0.025, confidence = 0.75, maxlen = 20))
+# 
+# inspect(head(ars, 200, by="confidence"))
+
+# print("Column Types: ")
+# columnTypes <- sapply(dataFrame, class)
+# print(columnTypes)
+# *******************************************************************
+# ***************************************************************************
+# samp <- sample(1:nrow(dataFrame), 120)
+# tr_set <- dataFrame[samp, ]
+# tst_set <- dataFrame[-samp, ]
+# model <- rpartXse(FiyatTL ~ ., tr_set, se = 0.5)
+# predicted <- predict(model, tst_set, type = "class")
+# head(predicted)
+# 
+# table(tst_set$FiyatTL, predicted)
+# errorRate <- sum(predicted != tst_set$FiyatTL) / nrow(tst_set)
+# errorRate
+# *****************************************************

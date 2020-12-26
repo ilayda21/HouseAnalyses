@@ -618,70 +618,343 @@ knitr::kable(sapply(dataFrame, class), col.names = c(&quot;Column Types&quot;))<
 </tbody>
 </table>
 <p>As it can be seen only the “GercekYas” column has NA values.</p>
-<div id="section-2" class="section level2">
-<h2><span class="header-section-number">1.1</span> Section 2</h2>
-<pre class="r"><code>data(iris)
-head(iris)</code></pre>
-<div class="kable-table">
+<div id="data-modification" class="section level2">
+<h2><span class="header-section-number">1.1</span> Data Modification</h2>
+<ul>
+<li><p>The first modification is converting the “empty” entry to NA. So it makes easier to handle such data.</p></li>
+<li><p>“MustakilMi” field is a boolean-like field. This column contains 0 and 1. This column is converted to a factor with yes (for 1) and no (for 0) levels.</p></li>
+<li><p>A new column that is called “OdaBilgisi” defined. Because generally houses are defined with both room and sitting room number. By inspiring that the “OdaSayisi” and “SalonSayisi” columns are merged. After that this column is converted to factor. This factor can get several fields these are: <strong>“3 + 1”, “2 + 1”, “3 + 2”, “4 + 1”, “1 + 1”, “5 + 1”, “7 + 1”, “4 + 2”, “6 + 2”, “6 + 1”, “5 + 2”, “7 + 2”, “2 + 2”, “6 + 3”, “4 + 4”, “4 + 3”, “2 + 0”, “1 + 0”, “8 + 2”, “4 + 0”, “9 + 1”, “8 + 1”, “1 + 2”, “3 + 3”, “5 + 5”, “5 + 3”, “5 + 4”, “8 + 4”, “1 + 3”</strong>. After this step “OdaSayisi”, “Salon Sayisi” and “ToplamOdaSayisi” columns are removed.</p></li>
+<li><p>It is realized that some fields are indicating same attribute. These fields are indicated with numbers 1 and 0. If that field is 1, it means this entry contains that attribute and the other way around. In short, it acts like a boolean field.</p></li>
+</ul>
+<p><strong>“ManzaraGol”, “ManzaraDeniz”, “ManzaraBogaz”, “ManzaraSehir” and “ManzaraDoga” Fields</strong> These five fields indicates the same attribute of the data that is the view attribute. Instead of using five different boolean-like columns, it can be merged as a factor column. That column is called “Manzara”. The inital four &quot;Cephe*&quot; columns are removed from the data. It can take following values:</p>
 <table>
 <thead>
 <tr class="header">
-<th align="right">Sepal.Length</th>
-<th align="right">Sepal.Width</th>
-<th align="right">Petal.Length</th>
-<th align="right">Petal.Width</th>
-<th align="left">Species</th>
+<th align="left">Manzara</th>
+<th align="right">Count</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<td align="left">Doga</td>
+<td align="right">17</td>
 </tr>
 <tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<td align="left">ManazaraYok</td>
+<td align="right">26</td>
 </tr>
 <tr class="odd">
-<td align="right">4.7</td>
-<td align="right">3.2</td>
-<td align="right">1.3</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<td align="left">DenizDoga</td>
+<td align="right">7</td>
 </tr>
 <tr class="even">
-<td align="right">4.6</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<td align="left">Deniz</td>
+<td align="right">23</td>
 </tr>
 <tr class="odd">
-<td align="right">5.0</td>
-<td align="right">3.6</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<td align="left">BogazDoga</td>
+<td align="right">332</td>
 </tr>
 <tr class="even">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.7</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
+<td align="left">DenizBogazDoga</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">DenizBogaz</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">GolDoga</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">GolBogazDoga</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">Gol</td>
+<td align="right">511</td>
+</tr>
+<tr class="odd">
+<td align="left">Bogaz</td>
+<td align="right">230</td>
+</tr>
+<tr class="even">
+<td align="left">GolDenizDoga</td>
+<td align="right">518</td>
+</tr>
+<tr class="odd">
+<td align="left">GolBogaz</td>
+<td align="right">2863</td>
+</tr>
+<tr class="even">
+<td align="left">BogazSehirDoga</td>
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="left">Sehir</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">SehirDoga</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">DenizSehir</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">DenizSehirDoga</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">DenizBogazSehirDoga</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">GolDenizBogazSehirDoga</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">GolSehir</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">GolBogazSehir</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">GolDenizSehirDoga</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">DenizBogazSehir</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">BogazSehir</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">GolDenizSehir</td>
+<td align="right">13705</td>
+</tr>
+<tr class="odd">
+<td align="left">GolSehirDoga</td>
+<td align="right">2882</td>
+</tr>
+<tr class="even">
+<td align="left">GolDeniz</td>
+<td align="right">2216</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div id="section-3" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> Section 3</h3>
-</div>
+<p>For some rows, all of the initial “Manzara” columns are 0. It is considered as there is no view at all. Taht factor is called “ManzaraYok”.</p>
+<p><strong>“CepheBati”, “CepheDogu”, “CepheGuney” and “CepheKuzey” Fields</strong>: These four fields indicates the same attribute of the data that is the side attribute. Instead of using four different boolean-like columns, it can be merged as a factor column. That column is called “Cephe”. The inital four &quot;Cephe*&quot; columns are removed from the data. It can take following values:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Cephe</th>
+<th align="right">Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">GuneyDogu</td>
+<td align="right">245</td>
+</tr>
+<tr class="even">
+<td align="left">Bati</td>
+<td align="right">256</td>
+</tr>
+<tr class="odd">
+<td align="left">KuzeyGuneyDogu</td>
+<td align="right">267</td>
+</tr>
+<tr class="even">
+<td align="left">GuneyDoguBati</td>
+<td align="right">1489</td>
+</tr>
+<tr class="odd">
+<td align="left">KuzeyGuneyDoguBati</td>
+<td align="right">2148</td>
+</tr>
+<tr class="even">
+<td align="left">KuzeyDoguBati</td>
+<td align="right">3197</td>
+</tr>
+<tr class="odd">
+<td align="left">KuzeyDogu</td>
+<td align="right">2558</td>
+</tr>
+<tr class="even">
+<td align="left">KuzeyGuneyBati</td>
+<td align="right">148</td>
+</tr>
+<tr class="odd">
+<td align="left">GuneyBati</td>
+<td align="right">948</td>
+</tr>
+<tr class="even">
+<td align="left">KuzeyBati</td>
+<td align="right">1048</td>
+</tr>
+<tr class="odd">
+<td align="left">DoguBati</td>
+<td align="right">1470</td>
+</tr>
+<tr class="even">
+<td align="left">Guney</td>
+<td align="right">399</td>
+</tr>
+<tr class="odd">
+<td align="left">Dogu</td>
+<td align="right">2790</td>
+</tr>
+<tr class="even">
+<td align="left">KuzeyGuney</td>
+<td align="right">3676</td>
+</tr>
+<tr class="odd">
+<td align="left">Kuzey</td>
+<td align="right">2789</td>
+</tr>
+</tbody>
+</table>
+<p>Yet it is realized that some column’s “CepheBati”, “CepheDogu”, “CepheGuney” and “CepheKuzey” are all 0. For those kind of data “Cephe” fields are set to NA. Number of NA values for “Cephe” column is <strong>3428</strong>. It can be considered as some serious number of data. Instead of deleting those data, it is tried to be filled. First of all is is considered as “KuzeyGuneyDoguBati” if the “MustakilMi” column’s value is “yes”. Otherwise the most related columns are tried to be found (Gini estimator is used.):</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th>CepheKuzey</th>
+<th>CepheGuney</th>
+<th>CepheDogu</th>
+<th align="right">CepheBati</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ilce</td>
+<td><strong>0.0254242</strong></td>
+<td>0.0061184</td>
+<td><strong>0.0089700</strong></td>
+<td align="right"><strong>0.0078112</strong></td>
+</tr>
+<tr class="even">
+<td align="left">Mahalle</td>
+<td><strong>0.0443875</strong></td>
+<td><strong>0.0226389</strong></td>
+<td><strong>0.0213966</strong></td>
+<td align="right"><strong>0.0202633</strong></td>
+</tr>
+<tr class="odd">
+<td align="left">MustakilMi</td>
+<td>0.0009665</td>
+<td>0.0003547</td>
+<td>0.0011038</td>
+<td align="right">0.0017228</td>
+</tr>
+<tr class="even">
+<td align="left">OrijinalAlan</td>
+<td>0.0123646</td>
+<td>0.0065836</td>
+<td>0.0034200</td>
+<td align="right">0.0034699</td>
+</tr>
+<tr class="odd">
+<td align="left">AlanMetrekare</td>
+<td>0.0123570</td>
+<td>0.0062361</td>
+<td>0.0032774</td>
+<td align="right">0.0033828</td>
+</tr>
+<tr class="even">
+<td align="left">BanyoSayisi</td>
+<td>0.0015910</td>
+<td>0.0018118</td>
+<td>0.0002022</td>
+<td align="right">0.0009455</td>
+</tr>
+<tr class="odd">
+<td align="left">FiyatTL</td>
+<td>0.0038907</td>
+<td>0.0043745</td>
+<td>0.0009105</td>
+<td align="right">0.0005756</td>
+</tr>
+<tr class="even">
+<td align="left">ToplamKat</td>
+<td>0.0005785</td>
+<td>0.0016701</td>
+<td>0.0001222</td>
+<td align="right">0.0006236</td>
+</tr>
+<tr class="odd">
+<td align="left">BulunduguKat</td>
+<td>0.0010074</td>
+<td>0.0010162</td>
+<td>0.0004923</td>
+<td align="right">0.0003838</td>
+</tr>
+<tr class="even">
+<td align="left">GercekYas</td>
+<td>0.0020330</td>
+<td>0.0003702</td>
+<td>0.0005473</td>
+<td align="right">0.0003022</td>
+</tr>
+<tr class="odd">
+<td align="left">CepheBati</td>
+<td><strong>0.0204956</strong></td>
+<td><strong>0.0118641</strong></td>
+<td>0.0034406</td>
+<td align="right">-</td>
+</tr>
+<tr class="even">
+<td align="left">CepheDogu</td>
+<td><strong>0.0216051</strong></td>
+<td><strong>0.0253396</strong></td>
+<td>-</td>
+<td align="right">0.0035100</td>
+</tr>
+<tr class="odd">
+<td align="left">CepheGuney</td>
+<td>0.0014582</td>
+<td>-</td>
+<td><strong>0.0294348</strong></td>
+<td align="right"><strong>0.0140594</strong></td>
+</tr>
+<tr class="even">
+<td align="left">CepheKuzey</td>
+<td>-</td>
+<td>0.0012306</td>
+<td><strong>0.0211797</strong></td>
+<td align="right"><strong>0.0204972</strong></td>
+</tr>
+<tr class="odd">
+<td align="left">Isitma</td>
+<td>0.0053332</td>
+<td>0.0013525</td>
+<td>0.0008965</td>
+<td align="right">0.0010985</td>
+</tr>
+<tr class="even">
+<td align="left">OdaBilgisi</td>
+<td>0.0168020</td>
+<td><strong>0.0072207</strong></td>
+<td>0.0057354</td>
+<td align="right">0.0062768</td>
+</tr>
+<tr class="odd">
+<td align="left">Manzara</td>
+<td>0.0042536</td>
+<td>0.0052831</td>
+<td>0.0032078</td>
+<td align="right">0.0031190</td>
+</tr>
+</tbody>
+</table>
+<p>Here as it can be seen from the table each “Cephe-” columns there are different related attributes. Data is filtered for each columns by using top four attributes. If such data exist then the most used “Cephe-” value is added to the “Cephe” tag. Let’s take “CepheKuzey” as an example. Attributes “Ilce”, “Mahalle”, “CepheBati” and “CepheDogu” are the most related attributes for “CepheKuzey” column. This is why rows whose data mathes with a row, whose “CepheKuzey” attribute is NA, are found. After that the most common “CepheKuzey” value is used to fill the NA field.</p>
 </div>
 </div>
 
