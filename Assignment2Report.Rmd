@@ -436,15 +436,32 @@ Outlier calculation with upper limit 0.95 and lower limit 0.05.
 |Muratpaşa |Güzeloba       |no         |           60|            60|           1|   138000.0|         2|            1|         60|Doğalgaz/Kombi |2 + 1      |GolDenizSehir |KuzeyDogu          |
 |Konyaaltı |Hurma          |no         |           65|            65|           1|   138000.0|         4|            1|         60|Doğalgaz/Kombi |2 + 1      |GolDeniz      |KuzeyDoguBati      |
 
-### Should Outliers Be Deleted?
+### DBScan Results
 Tables displays outliers that are detected with the given parameters. For most of the columns it is not reasonable to delete found data. Because the outliers are found  according to only one attribute. Also the data which is detected as outliers are meaningful if it is analyzed. This observation is valid for "OrjinalAlan", "AlanMetreKare", "FiyatTL", "BanyoSayisi", "ToplamKat" and "BulunduguKat". 
 
 On the other hand outliers that are detected for "GercekYas" are pretty unusual. For example, a 10 + 5 house cannot be 380 meter square. Another example is that a flat with 95 meter square which is 201 age and 5 + 0. Also there is a flat which is built before prehistoric ages(!). Those data seems wrong this is why they are deleted. 
 
 ## Outlier Detection with DBScan
 
-As another outlier detection method, DBScan is used. This method is a better idea to use because instead of trying to detect the outliers by just looking at only one numeric column, it considers multiple columns. The "eps" parameter affects DBScans performance in a serious way. Some trials are done to find the best "eps" value. It is selected as **1.07**. **108** outliers are found. It is possible to decrease this number by increasing the eps value. Yet in this case it takes too long or even won't end.
+As another outlier detection method, DBScan is used. This method is a better idea to use because instead of trying to detect the outliers by just looking at only one numeric column, it considers multiple columns. The "eps" parameter affects DBScans performance in a serious way. Some trials are done to find the best "eps" value. It is selected as **1.15**. **334** outliers are found. It is possible to decrease this number by increasing the eps value. Yet in this case it takes too long or even won't give any result. Moreover as value increases data in partition are became highly inbalanced.
+
+Found outliers are deleted from the data. At the end of this operation data has 24428 rows and 14 columns.
+
+# Discretization Of "FiyatTL" Attribute
+
+Discretization is needed to apply the tree algorithm. First of all it is needed to decide how many partition should be made. For that purpose plots that illustrates "FiyatTL" attributes' distribution. 
 
 
+![Count-FiyatTL Distribution](fiyatTLPlot.png)
 
-## DBScanResults
+This plot shows count for each "FiyatTL" value. 
+
+![Index-FiyatTL](scatterPlotFiyatTL.png)
+This graph shows each data's "FiyatTL" value.
+
+From looking at the data it is decided that five partition will be enough to represent the "FiyatTL" attribute. Instead of balancing interval for each level, levels' counts are balanced. The levels for each intervals are **[17000, 158000)**, **[158000, 200000)**, **[200000, 260000)**, **[260000, 370000)**, **[370000, 7680000]**.
+
+![Count-Discreminated FiyatTL](FiyatCount.png)
+
+This graph shows count of each level.
+
